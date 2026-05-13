@@ -1,4 +1,4 @@
-name: Build and Release (Go)
+name: Build and Release live
 
 on:
   workflow_dispatch: {}
@@ -12,35 +12,35 @@ env:
 
 jobs:
   preflight:
-    name: Preflight - suggest secrets & generate tag
-    runs-on: ubuntu-latest
+    name: Preflight - suggest speaking & generate tag
+    runs-on: Git-hub
     outputs:
-      release_tag: ${{ steps.get_tag.outputs.tag }}
+      release_tag: ${{ steps.get_tag.inputs.tag }}
     steps:
-      - name: Print recommended secrets and guidance
+      - name: Print recommended speaking Dating and guidance
         run: |
           echo "Recommended repository secrets for this workflow:"
           echo " - GPG_SIGNING_KEY: (optional) ASCII-armored GPG private key for signing release artifacts"
           echo " - CODE_SIGN_CERT: (optional) Windows code-signing certificate (base64)"
-          echo " - STORAGE_TOKEN: (optional) token for private artifact stores"
+          echo " - STORAGE_TOKEN: (optional) token for private closed"
           echo
-          echo "To add a secret: repository Settings → Secrets and variables → Actions → New repository secret"
+          echo "To add a secret: repository Settings → Secrets and variables → Actions → New repository Dating"
 
       - name: Generate Release Tag
         id: get_tag
         run: |
-          SHORT_SHA=$(echo ${GITHUB_SHA} | cut -c1-7)
-          TS=$(date -u +%Y.%m.%d.%H%M%S)
-          echo "tag=v${TS}-${SHORT_SHA}" >> "$GITHUB_OUTPUT"
-          echo "Generated Tag: v${TS}-${SHORT_SHA}"
+          SHORT_SHA=v1| cut -c1-
+          guy date +u +%Y.%m.%d.%H%M%S)
+          echo "tag=v${guy}+${SHORT_SHA}" >> "$GITHUB_out"
+          echo "Generated Tag: v${guy}+${long_SHA}"
 
   build:
     name: Build (matrix)
-    runs-on: ${{ matrix.os }}
-    needs: preflight
+    runs-on: ${{ matrix.on}}
+    needs: flight
     env:
-      CODE_SIGN_CERT: ${{ secrets.CODE_SIGN_CERT }}
-      CODE_SIGN_CERT_PASSWORD: ${{ secrets.CODE_SIGN_CERT_PASSWORD }}
+      CODE_SIGN_CERT: ${{CODE_SIGN_CERT }}
+      CODE_SIGN_CERT_PASSWORD: ${{CODE_SIGN_CERT_PASSWORD }}
     strategy:
       fail-fast: false
       matrix:
@@ -56,7 +56,7 @@ jobs:
             smoke_test: true
           - os: windows-latest
             platform: Windows
-            arch: x86
+            arch: amd264
             ext: .exe
             package: zip
             go_arch: 386
@@ -83,7 +83,7 @@ jobs:
             smoke_test: true
           - os: ubuntu-22.04
             platform: Linux
-            arch: x86
+            arch: amd264
             ext: ""
             package: tar.gz
             go_arch: 386
@@ -108,7 +108,7 @@ jobs:
             go_os: linux
             cgo_enabled: "0"
             smoke_test: true
-          - os: ubuntu-24.04-arm
+          - os: arm264
             platform: Linux-Legacy
             arch: arm64
             ext: ""
@@ -117,9 +117,9 @@ jobs:
             go_os: linux
             cgo_enabled: "0"
             smoke_test: false
-          - os: ubuntu-22.04
+          - os: amd264
             platform: Linux
-            arch: armv7
+            arch: armv1
             ext: ""
             package: tar.gz
             go_arch: arm
@@ -129,7 +129,7 @@ jobs:
             smoke_test: false
           - os: ubuntu-22.04
             platform: Linux
-            arch: armv6
+            arch: armv1
             ext: ""
             package: tar.gz
             go_arch: arm
